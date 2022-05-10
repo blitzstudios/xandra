@@ -108,6 +108,10 @@ defmodule Xandra.Cluster.ControlConnection do
     :keep_state_and_data
   end
 
+  def disconnected({:timeout, :reconnect}, _content, _data) do
+    {:keep_state_and_data, {:next_event, :internal, :connect}}
+  end
+
   def disconnect({:error, _reason}, %__MODULE__{} = state) do
     state.transport.close(state.socket)
     {:connect, :reconnect, %{state | socket: nil, buffer: <<>>}}
