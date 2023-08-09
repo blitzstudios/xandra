@@ -68,7 +68,7 @@ defmodule Xandra.Mixfile do
 
   defp deps() do
     [
-      {:db_connection, "~> 2.0"},
+      {:db_connection, github: "blitzstudios/db_connection", tag: "v2.0.6-metrics"},
       {:decimal, "~> 1.7", optional: true},
       {:nimble_options, "~> 0.4.0"},
 
