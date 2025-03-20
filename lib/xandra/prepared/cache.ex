@@ -23,6 +23,12 @@ defmodule Xandra.Prepared.Cache do
 
     key = {statement, keyspace}
 
+    result_columns = if String.starts_with?(statement, "INSERT") do
+      nil
+    else
+      result_columns
+    end
+
     :ets.insert(table, {key, id, bound_columns, result_columns, result_metadata_id})
     :ok
   end
