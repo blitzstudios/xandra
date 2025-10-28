@@ -237,19 +237,19 @@ defmodule Xandra.Protocol.V4 do
     encode_bound_values(columns, values, acc)
   end
 
-  defp encode_query_value({type, value}) when is_binary(type) do
+  def encode_query_value({type, value}) when is_binary(type) do
     encode_query_value(TypeParser.parse(type), value)
   end
 
-  defp encode_query_value(_type, nil) do
+  def encode_query_value(_type, nil) do
     <<-1::32>>
   end
 
-  defp encode_query_value(_type, :not_set) do
+  def encode_query_value(_type, :not_set) do
     <<-2::32>>
   end
 
-  defp encode_query_value(type, value) do
+  def encode_query_value(type, value) do
     acc = encode_value(type, value)
     [<<IO.iodata_length(acc)::32>>, acc]
   end
